@@ -89,6 +89,14 @@ class BPlusTree:
         if not node.is_leaf:
             for child in node.children:
                 self.print_tree(child, level + 1)
+    
+    def getDictTree(self):
+        if self.root == None:
+            return {'root': {}}
+        return {'root': self.root.getDict()}
+
+    def delete(self, key):
+        pass
 
 
 if __name__ == "__main__":
