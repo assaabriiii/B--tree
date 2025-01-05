@@ -81,6 +81,7 @@ class BPlusTree:
             leaf.keys.clear()
 
             border = int(math.ceil(self.order/2))
+
             leaf.keys = temp.keys[:border]
             leaf.pointers = temp.pointers[:border] + leaf.pointers
 
@@ -404,3 +405,15 @@ class BPlusTree:
                 nodes+=[(level+1, p) for p in cur.pointers]
             
         return [levels[key] for key in levels.keys()][:-1]
+
+
+bpt = BPlusTree(3)
+bpt.insert(1, 1)
+bpt.insert(2, 2)
+bpt.insert(3, 3)
+bpt.insert(4, 4)
+bpt.insert(5, 5)
+bpt.insert(6, 6)
+bpt.insert(7, 7)
+bpt.insert(9, 9)
+
