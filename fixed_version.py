@@ -1,5 +1,9 @@
 import math
 
+
+# NOTE: it was 2am and i was high on fucking drugs when i wrote this code
+# so please don't ask me to explain this code or make any pull requests
+# i'm sorry for the mess i've created.
 class Node:
     def __init__(self, is_leaf=False):
         self.is_leaf = is_leaf
@@ -162,22 +166,22 @@ class BPlusTree:
                 return parent
         return None
     
-    # BUG: Defintly not working as expected
     def get_dict(self):
         if self.root == None:
             return {'root': {}}
         return {'root': self.root.get_dict()}
 
-    def print_tree(self):
-        if self.root == None:
-            return
-        self._print_tree(self.root)
+    # BUG: Defintly not working as expected
+    # def print_tree(self):
+    #     if self.root == None:
+    #         return
+    #     self._print_tree(self.root)
 
-    def _print_tree(self, node, indent=0):
-        print(' ' * indent, node.keys)
-        if not node.is_leaf:
-            for child in node.children:
-                self._print_tree(child, indent + 2)
+    # def _print_tree(self, node, indent=0):
+    #     print(' ' * indent, node.keys)
+    #     if not node.is_leaf:
+    #         for child in node.children:
+    #             self._print_tree(child, indent + 2)
 
     def __str__(self):
         pass
@@ -238,4 +242,4 @@ if __name__ == "__main__":
     bpt.insert(24, 24)
     bpt.insert(25, 25)
     print(bpt.get_dict())
-    print(bpt.print_tree())
+    # print(bpt.print_tree())
