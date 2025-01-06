@@ -178,40 +178,51 @@ class BPlusTree:
     #     if self.root == None:
     #         return
     #     self._print_tree(self.root)
-
+    
+    # TODO: Fix and write for supporting above function
     # def _print_tree(self, node, indent=0):
     #     print(' ' * indent, node.keys)
     #     if not node.is_leaf:
     #         for child in node.children:
     #             self._print_tree(child, indent + 2)
 
+    # TODO: Add option for introducing the tree as string
     def __str__(self):
         pass
 
+    # TODO: Should return level of the tree
     def get_level_size(self):
         pass
 
+    # TODO: Returns children of a node
     def get_sibling(self):
         pass
 
+    # TODO: Return key of a node
     def find_key(self):
         pass
 
+    # TODO: Do what the function name says to do
     def is_predecessor(self):
         pass
 
+    # TODO: Add option to delete the node
     def _delete_entry(self):
         pass
 
+    # TODO: Add key in case there's only one key remains
     def _add_only_key(self):
         pass
 
+    # TODO: Merge leafs after inserting and deleting
     def _merge_leaf_nodes(self):
         pass
 
+    # TODO: Do what it is says to do
     def _merge(self):
         pass
 
+    # TODO: Delete the node
     def delete(self):
         pass
 
