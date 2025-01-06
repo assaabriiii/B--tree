@@ -1,7 +1,9 @@
 import math
 
 
-# NOTE: it was 2am and i was high on fucking drugs when i wrote this code
+# NOTE: it was 2am and i was high on fucking drugs 
+# then i chose between killing myself or writing this code
+# i chose the latter and now i'm regretting it
 # so please don't ask me to explain this code or make any pull requests
 # i'm sorry for the mess i've created.
 class Node:
