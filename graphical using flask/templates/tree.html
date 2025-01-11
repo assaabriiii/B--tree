@@ -21,14 +21,24 @@
             <form action = "/tree" method = "POST">
                 <p>Enter key to insert into tree:</p>
                 <p>
-                    <input type = "text" name = "insert"/>
-                    <input type = "submit" value = "submit"/>
+                    <input type = "text" name = "insert" placeholder="Insert a number"/>
+                    <input style="border-radius: 5px;" type = "submit" value = "Add"/>
                 </p>
 
                 <p>Enter key to remove from tree:</p>
                 <p>
-                    <input type = "text" name = "delete"/>
-                    <input type = "submit" value = "submit"/>
+                    <input type = "text" name = "delete" placeholder="Remove a number"/>
+                    <input style="border-radius: 5px;" type = "submit" value = "Remove"/>
+                </p>
+                <p>Enter file name for saving your tree:
+                <p>
+                    <input type = "text" name = "save" placeholder="File saves as JSON"/>
+                    <input style="border-radius: 5px;" type = "submit" value = "Save"/>
+                </p>
+                <p>Load file from JSON:
+                <p>
+                    <input type = "file" name = "json_file" accept=".json"/>
+                    <input style="border-radius: 5px;" type = "submit" value = "Upload"/>
                 </p>
             </form>
         </div>
@@ -39,6 +49,26 @@
     </div>
     <script>
         const treeData = {{tree_data|tojson}};
+
+        function animateNode(nodeElement, targetOpacity = 1, targetScale = 1, duration = 1000) {
+            let startTime = null;
+            const initialOpacity = 0;
+            const initialScale = 0;
+
+            function animate(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+
+                // Calculate the current opacity and scale based on progress
+                nodeElement.style.opacity = initialOpacity + progress * (targetOpacity - initialOpacity);
+                nodeElement.style.transform = `scale(${initialScale + progress * (targetScale - initialScale)})`;
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                }
+            }
+            requestAnimationFrame(animate);
+        }
 
         function drawTree(treeData) {
             const treeContainer = document.getElementById('treeContainer');
@@ -78,6 +108,8 @@
                 nodeElement.style.position = 'absolute';
                 nodeElement.style.left = nodeX + 'px';
                 nodeElement.style.top = nodeY + 'px';
+
+                animateNode(nodeElement);
 
                 if (!node.is_leaf) {
                     let childOffsetX = offsetX;
@@ -120,32 +152,25 @@
             ctx.beginPath();
             ctx.moveTo(fromX, fromY);
             ctx.lineTo(toX, toY);
-            ctx.stroke();
+            ctx.strokeStyle = '#023E8A';
 
-            ctx.beginPath();
-            ctx.moveTo(toX, toY);
-            ctx.lineTo(toX - headlen * Math.cos(angle - Math.PI / 6), toY - headlen * Math.sin(angle - Math.PI / 6));
-            ctx.lineTo(toX - headlen * Math.cos(angle + Math.PI / 6), toY - headlen * Math.sin(angle + Math.PI / 6));
-            ctx.lineTo(toX, toY);
-            ctx.lineTo(toX - headlen * Math.cos(angle - Math.PI / 6), toY - headlen * Math.sin(angle - Math.PI / 6));
             ctx.stroke();
-            ctx.fill();
         }
 
         function calculateMaxLevel(node, level = 0) {
-            if (node.is_leaf) {
-                return level;
+                            if (node.is_leaf) {
+                                return level;
+                            }
+                            return Math.max(...node.children.map(child => calculateMaxLevel(child, level + 1)));
             }
-            return Math.max(...node.children.map(child => calculateMaxLevel(child, level + 1)));
-        }
 
-        function initializeCanvas() {
-            const canvas = document.getElementById('treeCanvas');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);  // Clear previous drawings
-        }
+            function initializeCanvas() {
+                const canvas = document.getElementById('treeCanvas');
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);  // Clear previous drawings
+            }
 
         document.addEventListener('DOMContentLoaded', () => {
             initializeCanvas();

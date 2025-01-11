@@ -16,7 +16,17 @@
         <form id="treeForm" method="POST" action="/">
             <div class="form-group">
                 <label for="treeOrder">Tree order:</label>
-                <input type="number" id="treeOrder" name="treeOrder" min="3" value="3" required>
+                <input type="number" id="treeOrder" name="treeOrder" min="3" placeholder="Enter max degree" required list="numberList">
+                <datalist id="numberList">
+                    <script>
+                        const datalist = document.getElementById('numberList');
+                        for (let i = 3; i <= 100; i++) {
+                            const option = document.createElement('option');
+                            option.value = i;
+                            datalist.appendChild(option);
+                        }
+                    </script>
+                </datalist>
             </div>
             <div class="form-group">
                 <label for="treeType">Tree keys type:</label>

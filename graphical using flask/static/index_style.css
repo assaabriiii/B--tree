@@ -1,5 +1,6 @@
 * {
- font-family: 'Calibri Light', Arial, sans-serif;
+    /* font-family: Arial, Helvetica, sans-serif; */
+
 }
 
 .main-body {
@@ -10,7 +11,10 @@
 }
 
 body {
-    background-color: #FCF5ED;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #CAF0F8;
+
+
 }
 
 .index_footer {
@@ -56,21 +60,20 @@ form {
 
 button {
     padding: 10px 20px;
-    background-color: purple;
-    color: #FCF5ED;
-    border: 2px solid #1F1717;
+    background-color: #0077B6;
+    color: white;
+    font-size: 20px;
+    border: 2px solid white;
     border-radius: 5px;
     cursor: pointer;
     width: fit-content;
+    transition: 1s;
 }
 
 button:hover {
-    background-color: grey;
+    transition: 1s;
+    background-color: #90E0EF;
     color: #1F1717;
+    border: 2px solid black;
 }
 
-.github_div {
-    position: fixed;
-    left: 10px;
-    top: 25px;
-}
