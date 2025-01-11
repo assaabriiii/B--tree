@@ -1,13 +1,12 @@
 from flask import Flask, redirect, url_for, request, render_template
 from waitress import serve
-from main import BPlusTree
+from bplustree import BPlusTree
 app = Flask(__name__)
+import json
 
-# Default tree
-# tree = BPlusTree(4)
-# tree.insert(4)
-# print(tree.getDictTree())
+
 ttype = True # True for numeric, False for string
+
 
 @app.route('/tree', methods = ['POST', 'GET'])
 def tree_page():
@@ -16,51 +15,48 @@ def tree_page():
     if request.method == 'POST':
         ins = request.form['insert']
         d = request.form['delete']
-        print("debug1")
+        # file = request.files['json_file']
+        # print(file.filename)
+        save_file_name = request.form['save']
+
+        # if file:
+        #     print("Hello?")
+        #     try:
+        #         data = json.load(file)
+        #         return render_template('tree.html', tree_data=jsonify(data))
+        #     except json.JSONDecodeError:
+        #         return "Invalid JSON file", 400
+
         if str(ins) != '' and ins != None:
-            print("debug2")
             if ttype:
-                print("debug3")
                 if ins.isdigit():
-                    print("debug4")
                     insert_key = int(ins)
                 else:
-                    print("debug5")
-                    print(tree.getDictTree())
                     return render_template('tree.html', tree_data=tree.getDictTree())
             else:
-                print("debug6")
                 insert_key = str(ins)
 
-            # Process input submission
-            if tree._search(insert_key) == None:
-                print("debug7")
-                print(f"inserting {insert_key} and {int(ins)}")
-                tree.insert(int(ins))
-                # tree.insert(insert_key, str(ins))
+            if tree.search(insert_key) == None:
+                tree.insert(insert_key, str(ins))
 
         if str(d) != '' and d != None:
-            print("debug8")
             if ttype:
-                print("debug9")
                 if d.isdigit():
-                    print("debug10")
                     delete_key = int(d)
                 else:
-                    print("debug11")
-                    print(tree.getDictTree())
                     return render_template('tree.html', tree_data=tree.getDictTree())
             else:
-                print("debug12")
                 delete_key = str(d)
 
-            # TODO: Implement delete
-            # if tree.search(delete_key) != None:
-                # print(str(d), tree.test_find(delete_key).pointers)
+            if tree.search(delete_key) != None:
+                print(str(d), tree.test_find(delete_key).pointers)
+                tree.delete(delete_key, str(d))
 
-                # tree.delete(delete_key, str(d))
-    print("debug13")
-    print(tree.getDictTree())
+
+        if str(save_file_name) != '' and save_file_name != None:
+            with open(f'{save_file_name}.json', 'w') as file:
+                json.dump(tree.getDictTree(), file, indent=4)
+
     return render_template('tree.html', tree_data=tree.getDictTree())
 
 @app.route('/', methods = ['POST', 'GET'])

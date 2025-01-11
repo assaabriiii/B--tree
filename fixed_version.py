@@ -48,7 +48,7 @@ class BPlusTree:
         if key == None or child == None:
             return
         leaf = None
-        
+
         if self.root == None:
             self.root = Node(is_leaf=True)
             leaf = self.root
@@ -172,7 +172,7 @@ class BPlusTree:
         if self.root == None:
             return {'root': {}}
         return {'root': self.root.get_dict()}
-
+        
     # BUG: Defintly not working as expected
     # def print_tree(self):
     #     if self.root == None:
