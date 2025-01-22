@@ -15,17 +15,7 @@ def tree_page():
     if request.method == 'POST':
         ins = request.form['insert']
         d = request.form['delete']
-        # file = request.files['json_file']
-        # print(file.filename)
         save_file_name = request.form['save']
-
-        # if file:
-        #     print("Hello?")
-        #     try:
-        #         data = json.load(file)
-        #         return render_template('tree.html', tree_data=jsonify(data))
-        #     except json.JSONDecodeError:
-        #         return "Invalid JSON file", 400
 
         if str(ins) != '' and ins != None:
             if ttype:
@@ -77,5 +67,4 @@ def index():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    #app.run(debug = True)
     serve(app, host="0.0.0.0", port=8000)
